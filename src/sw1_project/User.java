@@ -59,12 +59,16 @@ public class User {
         System.out.println("Enter User Name : ");
         String userName = myObj.nextLine();
         
-        sys.searchUser(userName).friendRequest.add(this);
-        sys.searchUser(userName).notification.add(this.name + "sent you afriend requist .");
-        
+        if (sys.searchUser(userName) != null){
+            sys.searchUser(userName).friendRequest.add(this);
+            sys.searchUser(userName).notification.add(this.name + "sent you afriend requist .");
+        }else
+            System.out.println("User Not Found!!");
     }
     public void acceptFriend(User x) {
-        
+        this.friends.add(x);
+        x.friends.add(this);
+        x.notification.add(this.name+"accepted you friend requist ");
     }
     
     
