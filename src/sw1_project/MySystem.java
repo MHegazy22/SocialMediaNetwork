@@ -26,7 +26,7 @@ public class MySystem {
         System.out.println("Enter Gender");
         String gender = myObj.nextLine();
         
-        User x = new User(userName,email,pass,gender);
+        User x = new NormalUser("normal",userName,email,pass,gender);
         this.users.add(x);
         this.curr = x ;
     }
