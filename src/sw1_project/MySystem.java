@@ -92,8 +92,27 @@ public class MySystem {
                         System.out.println(this.curr.notification.get(i));
                 }
                 if (process2 == 4) {
-                    for (int i=0 ; i<this.curr.notification.size() ; i++)
-                        System.out.println(this.curr.friendRequest.get(i).getName());
+                    while (true) {
+                        if (curr.friendRequest.size() >= 1) {
+                            for (int i = 0; i < this.curr.notification.size(); i++) {
+                                System.out.println((i + 1) + "- " + this.curr.friendRequest.get(i).getName());
+                            }
+                            System.out.println("enter number of user to accept his friend requist or 0 to back :");
+                            int i = myObj.nextInt();
+
+                            if (i == 0) {
+                                break;
+                            } else {
+                                this.curr.acceptFriend(curr.friendRequest.get(i - 1));
+                                curr.friendRequest.remove(i - 1);
+                                if(curr.friendRequest.isEmpty())
+                                    break;
+                            }
+                        } else {
+                            System.out.println("there is no friend requists.");
+                            break;
+                        }
+                    }
                 }
                 if (process2 == 5) {
                     break;
