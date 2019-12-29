@@ -26,12 +26,18 @@ public class MySystem {
         System.out.println("Enter Gender");
         String gender = myObj.nextLine();
         
-        User x = new User(userName,email,pass,gender);
+        System.out.println("Enter Country");
+        String country = myObj.nextLine();
+        
+        System.out.println("Enter Date Of Birth");
+        String date = myObj.nextLine();
+        
+        User x = new NormalUser("normal",userName,email,pass,gender,country,date);
         this.users.add(x);
         this.curr = x ;
     }
     
-    public void login(){
+    public Boolean login(){
         Scanner myObj = new Scanner(System.in);  
         System.out.println("Enter User Name :");
         String name = myObj.nextLine();
@@ -44,7 +50,9 @@ public class MySystem {
             this.curr = this.searchUser(name) ;
         else {
             System.out.println("Invalid User Name Or Password");
+            return false ;
         } 
+        return true ;
     }
     
     public User searchUser(String name){
@@ -59,30 +67,39 @@ public class MySystem {
         }
         return user ;
     }
+    public void delteUser(String name){
+        for (int i=0 ; i<this.users.size() ; i++)
+        {
+            if (this.users.get(i).getName().equals(name))
+            {
+                this.users.remove(i);
+                break ;
+            }
+        }
+    }
+    public void upgrade(){
+        Verification ver = new Verification();
+        ver.verifyCredit(); 
+        
+        User user = new PremiumUser("premium",curr.getName(),curr.getEmail(),curr.getPassword(),curr.getGender(),curr.getCountry(),curr.getDateOfBirth());
+        delteUser(curr.getName());
+        this.users.add(user);
+        this.curr = user ;
+        System.out.println("you are now premium $$ :) ");
+    }
 
-    void run() {
-        while (true) {
+    void procces(){
+        while (true){
             Scanner myObj = new Scanner(System.in);
-            System.out.println("Enter Process");
-            System.out.println("1- LogIn :");
-            System.out.println("2- Register");
-            int process = myObj.nextInt();
-
-            if (process == 1) {
-                this.login();
-            }
-            if (process == 2) {
-                this.register();
-            }
-            while (true){
-                System.out.println("1- print name :");
+                System.out.println("1- Make Post :");
                 System.out.println("2- send friend requist :");
                 System.out.println("3- notification :");
                 System.out.println("4- frind requists :");
-                System.out.println("5- logout");
+                System.out.println("5- Upgrage Registeration :");
+                System.out.println("6- logout");
                 int process2 = myObj.nextInt();
                 if (process2 == 1) {
-                    System.out.println(this.curr.getName());
+                    curr.addPost();
                 }
                 if (process2 == 2) {
                     this.curr.addFriend(this);
@@ -92,13 +109,64 @@ public class MySystem {
                         System.out.println(this.curr.notification.get(i));
                 }
                 if (process2 == 4) {
-                    for (int i=0 ; i<this.curr.notification.size() ; i++)
-                        System.out.println(this.curr.friendRequest.get(i).getName());
+                    while (true) {
+                        if (curr.friendRequest.size() >= 1) {
+                            for (int i = 0; i < this.curr.notification.size(); i++) {
+                                System.out.println((i + 1) + "- " + this.curr.friendRequest.get(i).getName());
+                            }
+                            System.out.println("enter number of user or 0 to back :");
+                            int i = myObj.nextInt();
+
+                            if (i == 0) {
+                                break;
+                            } else {
+                                System.out.println("1- show posts : \n2- acceptfriend requist  \n0- back :");
+                                int temp = myObj.nextInt();
+                                if (temp == 1) {
+                                    curr.friendRequest.get(i - 1).showPost();
+
+                                } else if (temp == 2) {
+                                    this.curr.acceptFriend(curr.friendRequest.get(i - 1));
+                                    curr.friendRequest.remove(i - 1);
+                                    if (curr.friendRequest.isEmpty()) 
+                                        break;
+                                    }
+                                }
+                        } else {
+                            System.out.println("there is no friend requists.");
+                            break;
+                        }
+                    
+                }
                 }
                 if (process2 == 5) {
+                    this.upgrade();
+                }
+                if (process2 == 6) {
                     break;
                 }
             }
+    }
+    void run() {
+        while (true) {
+            Scanner myObj = new Scanner(System.in);
+            System.out.println("Enter Process");
+            System.out.println("1- LogIn :");
+            System.out.println("2- Register :");
+            System.out.println("0- end ");
+            
+            int process = myObj.nextInt();
+
+            if (process == 1) {
+                if (this.login())
+                    procces();
+            }
+            if (process == 2) {
+                this.register();
+                procces();
+            }
+            if (process == 0)
+                break ; 
         }
     }
     
