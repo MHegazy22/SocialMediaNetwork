@@ -1,22 +1,12 @@
 package sw1_project;
 
 public class PremiumUser extends User{
-    String type ; 
 
-    public PremiumUser(String type, String name, String email, String password, String gender) {
-        super(name, email, password, gender);
-        this.type = type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public String getType() {
-        return type;
+    public PremiumUser(String type, String name, String email, String password, String gender, String country, String dateOfBirth) {
+        super(type, name, email, password, gender, country, dateOfBirth);
     }
     
     public void addedFuntionalities (){
-        System.out.println("I Am Premuim $$ ");
-    } 
+        System.out.println("I Am Premuim $$ :) ");
+    }
 }
