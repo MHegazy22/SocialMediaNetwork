@@ -6,6 +6,7 @@ public class PremiumUser extends User{
         super(type, name, email, password, gender, country, dateOfBirth);
     }
     
+    @Override
     public void addedFuntionalities (){
         System.out.println("I Am Premuim $$ :) ");
     }
