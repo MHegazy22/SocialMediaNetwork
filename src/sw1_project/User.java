@@ -99,7 +99,7 @@ public class User {
         System.out.println("Enter User Name : ");
         String userName = myObj.nextLine();
         
-        if (sys.searchUser(userName) != null){
+        if (sys.searchUser(userName) != null && !(userName==this.name)){
             sys.searchUser(userName).friendRequest.add(this);
             sys.searchUser(userName).notification.add(this.name + " sent you afriend requist .");
         }else
