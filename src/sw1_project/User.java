@@ -111,8 +111,7 @@ public class User {
         x.notification.add(this.name + " accepted your friend requist ");
         System.out.println("ypu and "+ x.getName() +" are now friends ");
     }
-    public void addPost ()
-    {
+    public void addPost (){
         System.out.println("Enter Text To Post : ");
         Scanner myObj = new Scanner(System.in);  
         System.out.println("Enter Text To Post : ");
@@ -129,5 +128,6 @@ public class User {
             System.out.println("<<--------------------******---------------->>");
         }
     }
+    public void addedFuntionalities (){}
     
 }
