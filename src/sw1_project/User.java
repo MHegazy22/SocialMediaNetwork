@@ -124,9 +124,9 @@ public class User {
     public void showPost(){
         for (int i=0 ; i<this.posts.size() ; i++)
         {
-            System.out.println("//--------------------******----------------\\");
+            System.out.println("<<--------------------******---------------->>");
             System.out.println(this.posts.get(i).getText());
-            System.out.println("//--------------------******----------------\\");
+            System.out.println("<<--------------------******---------------->>");
         }
     }
     
